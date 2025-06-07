@@ -14,7 +14,7 @@ const printSay = (cmd_obj, printConsole) => {
   }
 
   for (let i = 0; i < times; i++) {
-    printConsole(content);
+    printConsole(content ?? "");
   }
 };
 
