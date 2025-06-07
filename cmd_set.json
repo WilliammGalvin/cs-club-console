@@ -1,5 +1,12 @@
 [
   {
+    "cmd": "clear",
+    "flags": [],
+    "args": [],
+    "usage": "clear",
+    "description": "Clears the console history."
+  },
+  {
     "cmd": "say",
     "flags": [
       { "long": "scream", "short": "s" },

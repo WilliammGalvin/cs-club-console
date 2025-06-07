@@ -149,9 +149,9 @@ class Console {
   }
 }
 
-export const runCommand = (cmd) => {
+export const runCommand = (cmd, printConsole) => {
   const lexer = new Lexer(cmd);
   const parser = new Console(lexer.lexLine());
   const cmd_obj = parser.parseCmd();
-  findAndRunCmd(cmd_obj);
+  findAndRunCmd(cmd_obj, printConsole);
 };

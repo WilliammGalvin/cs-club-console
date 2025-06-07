@@ -1,13 +1,8 @@
 import CmdSet from "./cmd_set.json" assert { type: "json" };
 import { ConsoleError, InternalConsoleError } from "./console_err.js";
 
-/* Action functions */
-const printConsole = (str) => {
-  console.log(str);
-};
-
 /* Add commands here */
-const printCmd = (cmd_obj) => {
+const printCmd = (cmd_obj, printConsole) => {
   const [flags, args] = cmd_obj;
   let content = args.content;
   let times = args?.times ?? 1;
@@ -23,7 +18,7 @@ const printCmd = (cmd_obj) => {
   }
 };
 
-const helpCmd = (cmd_obj) => {
+const helpCmd = (cmd_obj, printConsole) => {
   if (Object.keys(cmd_obj.args).length > 0) {
     const target = getCmdInfoObj().find((obj) => obj.cmd == cmd_obj.args.name);
 
@@ -57,7 +52,7 @@ const helpCmd = (cmd_obj) => {
   );
 };
 
-const whoCmd = (cmd_obj) => {
+const whoCmd = (cmd_obj, printConsole) => {
   printConsole("Who, me?");
 };
 
@@ -76,7 +71,7 @@ export const getCmdInfoObj = () => {
   return CmdSet;
 };
 
-const findAndRunCmd = (cmd) => {
+const findAndRunCmd = (cmd, printConsole) => {
   if (!command_set.has(cmd.id)) {
     throw new InternalConsoleError(
       "Commands",
@@ -84,7 +79,7 @@ const findAndRunCmd = (cmd) => {
     );
   }
 
-  command_set.get(cmd.id)(cmd);
+  command_set.get(cmd.id)(cmd, printConsole);
 };
 
 export default findAndRunCmd;
