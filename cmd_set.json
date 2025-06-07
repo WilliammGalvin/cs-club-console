@@ -1,10 +1,27 @@
 [
   {
-    "cmd": "print",
+    "cmd": "say",
     "flags": [
       { "long": "scream", "short": "s" },
       { "long": "whisper", "short": "w" }
     ],
-    "args": ["content times", "content"]
+    "args": ["content times", "content"],
+    "usage": "say [-s | --scream] [-w | --whisper] <content> [times]",
+    "description": "Print out a message."
+  },
+  {
+    "cmd": "help",
+    "flags": [],
+    "args": ["", "name"],
+    "usage": "help [name]",
+    "description": "Get more info on commands."
+  },
+  {
+    "cmd": "who",
+    "flags": [],
+    "args": [""],
+    "usage": "",
+    "description": "",
+    "is_secret": true
   }
 ]

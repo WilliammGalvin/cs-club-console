@@ -1,7 +1,6 @@
 import Lexer, { TokenType } from "./lexer.js";
-import CmdSet from "./cmd_set.json" assert { type: "json" };
 import { ConsoleError, InternalConsoleError } from "./console_err.js";
-import findAndRunCmd from "./commands.js";
+import findAndRunCmd, { getCmdInfoObj } from "./commands.js";
 
 class Console {
   constructor(tokens) {
@@ -94,8 +93,12 @@ class Console {
     let return_args = {};
 
     argOptions.forEach((arg_option) => {
-      const args = arg_option.split(" ");
+      if (arg_option == "") {
+        found_match = true;
+        return;
+      }
 
+      const args = arg_option.split(" ");
       if (args.length != usr_args.length) return;
 
       for (let i = 0; i < args.length; i++) {
@@ -118,7 +121,7 @@ class Console {
       throw new ConsoleError("Invalid command.");
     }
 
-    let cmd = CmdSet.find(
+    let cmd = getCmdInfoObj().find(
       (obj) => obj.cmd == this.#peek().content.toLowerCase()
     );
 
@@ -139,15 +142,14 @@ class Console {
       id: cmd.cmd,
       flags: flags,
       args: args,
+      usage: cmd.usage,
+      description: cmd.description,
+      is_secret: cmd.is_secret ?? false,
     };
   }
 }
 
 export const runCommand = (cmd) => {
-  if (!CmdSet) {
-    throw new InternalConsoleError("Console", "Failed to fetch command set.");
-  }
-
   const lexer = new Lexer(cmd);
   const parser = new Console(lexer.lexLine());
   const cmd_obj = parser.parseCmd();
