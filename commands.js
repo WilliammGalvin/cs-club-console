@@ -3,7 +3,7 @@ import { ConsoleError, InternalConsoleError } from "./console_err.js";
 
 /* Add commands here */
 const printSay = (cmd_obj, printConsole) => {
-  const [flags, args] = cmd_obj;
+  const { flags, args } = cmd_obj;
   let content = args.content;
   let times = args?.times ?? 1;
 
