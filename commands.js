@@ -2,7 +2,7 @@ import CmdSet from "./cmd_set.json" assert { type: "json" };
 import { ConsoleError, InternalConsoleError } from "./console_err.js";
 
 /* Add commands here */
-const printCmd = (cmd_obj, printConsole) => {
+const printSay = (cmd_obj, printConsole) => {
   const [flags, args] = cmd_obj;
   let content = args.content;
   let times = args?.times ?? 1;
@@ -58,7 +58,7 @@ const whoCmd = (cmd_obj, printConsole) => {
 
 /* -- */
 const command_set = new Map([
-  ["print", printCmd],
+  ["say", printSay],
   ["help", helpCmd],
   ["who", whoCmd],
 ]);
